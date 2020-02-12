@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { getToDos, postToDo, deleteToDo, patchToDo } from '../apis/api';
+import * as storage from 'redux-storage';
+import store, { storageLoader } from '../store';
 
 export const addToDo =(text) => async (dispatch)=>{
     let newToDo = {
@@ -43,10 +45,28 @@ export const toggleToDo = (id) => {
     }
 }
 
-export const getToDoCollection= () => async (dispatch)=>{
-    let response = await getToDos();
-    dispatch({
-        type:actionTypes.GET_TODO_COLLECTION,
-        payload:[...response.data]
-    });
-}
+// export const getToDoCollection= () => async (dispatch)=>{
+//     let response = await getToDos();
+//     dispatch({
+//         type:actionTypes.GET_TODO_COLLECTION,
+//         payload:[...response.data]
+//     });
+// }
+
+export const getToDoCollection= () => async (dispatch) => {
+    try {
+        let newState = await storageLoader(store);
+        dispatch({
+            type:actionTypes.GET_TODO_COLLECTION,
+            payload: newState.todos
+        });
+
+    }
+    catch {
+        dispatch({
+            type:actionTypes.GET_TODO_COLLECTION,
+            payload: []
+        });
+    }
+    
+};
