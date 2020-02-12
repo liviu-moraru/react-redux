@@ -1,34 +1,36 @@
-import * as actionTypes from '../actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes';
+import produce  from 'immer';
+import _ from 'lodash';
 
 const initialSelectedToDoId = -1;
 const initialToDos = [];
 
 const todos = (state = initialToDos, action) => {
     if (action.type === actionTypes.ADD_TODO) {
-        return [...state, action.payload];
+        return produce(state, draftState => {
+            draftState.push(action.payload);
+        });
     }
     if (action.type === actionTypes.REMOVE_TODO) {
-        const arr = state.filter((item) => { return item.id !== action.payload.id });
-        return arr;
+        return produce(state, draftState => {
+           // _.remove(draftState, item => item.id === action.payload.id );
+            return draftState.filter(item => item.id !== action.payload.id );
+        });
+        
     }
 
     if (action.type === actionTypes.UPDATE_TODO) {
-        return state.map((todo) => {
-            if (todo.id !== action.payload.id) {
-                return todo
-            }
-
-            return { ...action.payload }
-        })
+        
+        return produce(state, draftState => {
+            draftState[_.findIndex(draftState, item => item.id === action.payload.id)] = action.payload;
+        });
     }
 
     if (action.type === actionTypes.TOGGLE_TODO) {
-        return state.map((todo) => {
-            if (todo.id !== action.payload) {
-                return todo
-            }
-            return { ...todo, checked: !todo.checked }
-        })
+        return produce(state, draftState => {
+             const index = _.findIndex(draftState, item => item.id === action.payload);
+             draftState[index].checked = !draftState[index].checked;
+        });
     }
 
     if (action.type === actionTypes.GET_TODO_COLLECTION) {
