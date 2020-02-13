@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import todos from './reducers/toDoReducer';
+import todos from './reducers';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-localstorage';
