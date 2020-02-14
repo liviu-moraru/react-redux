@@ -1,9 +1,8 @@
-import { combineReducers } from 'redux';
-import todos from './reducers';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import * as storage from 'redux-storage';
-import createEngine from 'redux-storage-engine-localstorage';
-import * as actionTypes from './actions/actionTypes';
+import { combineReducers } from "redux";
+import todos from "./slices/reducers";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import * as storage from "redux-storage";
+import createEngine from "redux-storage-engine-localstorage";
 
 // We need to wrap the base reducer, as this is the place where the loaded
 // state will be injected.
@@ -16,7 +15,7 @@ const reducer = storage.reducer(combineReducers(todos));
 // Now it's time to decide which storage engine should be used
 //
 // Note: The arguments to `createEngine` are different for every engine!
-const engine = createEngine('my-save-key');
+const engine = createEngine("my-save-key");
 
 // And with the engine we can create our middleware function. The middleware
 // is responsible for calling `engine.save` with the current state afer
@@ -24,10 +23,10 @@ const engine = createEngine('my-save-key');
 //
 // Note: You can provide a list of action types as second argument, those
 //       actions will be filtered and WON'T trigger calls to `engine.save`!
-const storageMiddleware = storage.createMiddleware(engine, [actionTypes.SELECT_TODO]);
+const storageMiddleware = storage.createMiddleware(engine);
 export const storageLoader = storage.createLoader(engine);
 
 export default configureStore({
-    reducer,
-    middleware: [...getDefaultMiddleware(), storageMiddleware ]
+  reducer,
+  middleware: [...getDefaultMiddleware(), storageMiddleware]
 });
