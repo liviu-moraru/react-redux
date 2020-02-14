@@ -26,10 +26,10 @@ const todos = createSlice({
   }
 });
 
-const getInitialData = () => async (dispatch, getState) => {
-  let result = await apis.getToDos();
-  dispatch(todos.actions.getToDos(result.data));
-};
+// const getInitialData = () => async (dispatch, getState) => {
+//   let result = await apis.getToDos();
+//   dispatch(todos.actions.getToDos(result.data));
+// };
 
 const addToDo = text => async dispatch => {
   let newToDo = {
@@ -51,7 +51,7 @@ const updateToDo = toDo => async dispatch => {
 };
 
 const actions = {
-  getInitialData,
+  getToDos: todos.actions.getToDos,
   addToDo,
   removeToDo,
   updateToDo,
