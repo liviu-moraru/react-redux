@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialSelectedToDoId = -1;
 
-export const selectedToDoId = createSlice({
+const selectedToDoId = createSlice({
   name: "selectedToDoId",
   initialState: initialSelectedToDoId,
   reducers: {
@@ -9,7 +9,7 @@ export const selectedToDoId = createSlice({
   }
 });
 
-export default {
-  reducer: selectedToDoId.reducer,
-  actions: selectedToDoId.actions
-};
+const actions = selectedToDoId.actions;
+const reducer = selectedToDoId.reducer;
+
+export { reducer, actions };

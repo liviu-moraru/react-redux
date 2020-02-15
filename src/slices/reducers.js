@@ -1,4 +1,4 @@
-import todos from "./todosSlice";
-import { selectedToDoId } from "./selectedToDoSlice";
+import { reducer as todos } from "./todosSlice";
+import { reducer as selectedToDoId } from "./selectedToDoSlice";
 
-export default { todos: todos.reducer, selectedToDoId: selectedToDoId.reducer };
+export default { todos, selectedToDoId };

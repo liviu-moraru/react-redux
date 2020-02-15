@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import actions from "./slices/actions";
-import { getInitialData } from "./slices/getInitialDataActionCreator";
 
 class ToDoList extends React.Component {
   state = { content: "" };
@@ -84,7 +83,7 @@ const mapDispatchToProps = {
   selectToDo: actions.selectedToDoId.selectedToDoId,
   updateToDo: actions.todos.updateToDo,
   toggleToDo: actions.todos.toggleToDo,
-  getToDoCollection: getInitialData
+  getToDoCollection: actions.getInitialData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);

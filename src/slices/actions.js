@@ -1,3 +1,9 @@
-import todos from "./todosSlice";
-import selectedToDoId from "./selectedToDoSlice";
-export default { todos: todos.actions, selectedToDoId: selectedToDoId.actions };
+import { actions as todos } from "./todosSlice";
+import { actions as selectedToDoId } from "./selectedToDoSlice";
+import { getInitialData } from "./getInitialDataActionCreator";
+
+export default {
+  todos,
+  selectedToDoId,
+  getInitialData
+};

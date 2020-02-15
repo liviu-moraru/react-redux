@@ -57,5 +57,5 @@ const actions = {
   updateToDo,
   toggleToDo: todos.actions.toggleToDo
 };
-
-export default { reducer: todos.reducer, actions: actions };
+const reducer = todos.reducer;
+export { reducer, actions };
